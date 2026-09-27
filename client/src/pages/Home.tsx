@@ -129,7 +129,6 @@ const businessSchema = {
     postalCode: "33432",
     addressCountry: "US",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 26.3520343, longitude: -80.0848961 },
   openingHoursSpecification: [
     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
   ].map((dayOfWeek) => ({
