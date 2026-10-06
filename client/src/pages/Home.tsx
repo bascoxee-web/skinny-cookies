@@ -7,10 +7,18 @@ type MenuItem = {
   description: string;
   image: string;
   category: "cookies" | "sundaes";
+  price: number;
   orderUrl: string;
 };
 
 const OWNER_MENU = "https://pzzaand.com/menu";
+// Item links (?item=...) change their suffix whenever the menu is edited, so every order button
+// opens the Sweets section of the live menu instead. That link keeps working after menu edits.
+const SWEETS_MENU = `${OWNER_MENU}#sweets`;
+// Skinny Cookies has no separate DoorDash store yet; its items are in PZZA&'s DoorDash store (Sweets).
+const DOORDASH_URL = "https://www.doordash.com/store/pzza-boca-raton-25830742/";
+const SITE_URL = "https://www.skinnycookies.com/";
+const money = (value: number) => `$${value.toFixed(2)}`;
 const img = (name: string) => `./img/${name}.jpg`;
 const photos = {
   cookie: img("cookie"),
@@ -23,24 +31,26 @@ const photos = {
   salted: img("salted"),
 };
 
-// This list mirrors the sweets currently published on PZZA&'s live Owner.com menu.
-// Prices, order options, and current availability are shown and controlled there.
+// This list mirrors the sweets published on PZZA&'s live Owner.com menu (Sweets section).
+// Prices shown here are the in-store menu prices; the live menu is the source of truth at checkout.
 const menuItems: MenuItem[] = [
+  {
+    id: "skinny-cookie",
+    name: "The Skinny Cookie",
+    description: "Thin, crispy-edged, and loaded with Valrhona chocolate. Finished with a chunk of chocolate on top and Maldon flake sea salt.",
+    image: photos.cookie,
+    category: "cookies",
+    price: 4,
+    orderUrl: SWEETS_MENU,
+  },
   {
     id: "skinny-cookie-sandwich",
     name: "Skinny Cookie Ice Cream Sandwich",
     description: "Two Skinny Cookies sandwiching Madagascar Vanilla Bean soft serve.",
     image: photos.sandwich,
     category: "cookies",
-    orderUrl: `${OWNER_MENU}?item=skinny-cookie-ice-cream-sandwich-7efF`,
-  },
-  {
-    id: "pistachio-sandwich",
-    name: "Pistachio Skinny Cookie Ice Cream Sandwich",
-    description: "A pistachio version of the Skinny Cookie ice cream sandwich. See the live menu for current details.",
-    image: photos.sandwich,
-    category: "cookies",
-    orderUrl: `${OWNER_MENU}?item=pistachio-skinny-cookie-ice-cream-sandwich-2472`,
+    price: 9,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "cookies-milk-sundae",
@@ -48,7 +58,8 @@ const menuItems: MenuItem[] = [
     description: "Madagascar Vanilla soft serve topped with Skinny Cookie pieces and condensed milk.",
     image: photos.cookiesMilk,
     category: "sundaes",
-    orderUrl: `${OWNER_MENU}?item=cookies-and-milk-sundae-Y4gE`,
+    price: 10,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "fried-oreos",
@@ -56,15 +67,17 @@ const menuItems: MenuItem[] = [
     description: "Oreos deep fried and dusted with powdered sugar.",
     image: photos.oreos,
     category: "cookies",
-    orderUrl: `${OWNER_MENU}?item=2-fried-oreos-4l90`,
+    price: 4,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "soda-floats",
     name: "Soda Floats",
-    description: "See the PZZA& order menu for current float options and availability.",
+    description: "Soda topped with Madagascar Vanilla Bean soft serve.",
     image: photos.float,
     category: "sundaes",
-    orderUrl: `${OWNER_MENU}?item=soda-floats-nNqh`,
+    price: 7,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "vanilla-soft-serve",
@@ -72,7 +85,8 @@ const menuItems: MenuItem[] = [
     description: "Madagascar Vanilla Bean soft serve gelati, made with grass-fed milk and a choice of toppings.",
     image: photos.softServe,
     category: "sundaes",
-    orderUrl: `${OWNER_MENU}?item=madagascar-vanilla-soft-serve-ice-cream-lq94`,
+    price: 6,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "gator-sundae",
@@ -80,7 +94,8 @@ const menuItems: MenuItem[] = [
     description: "Vanilla soft serve topped with chocolate shell, Oreo crumbs, and a fried Oreo.",
     image: photos.sundae,
     category: "sundaes",
-    orderUrl: `${OWNER_MENU}?item=gator-sundae-xIC3`,
+    price: 10,
+    orderUrl: SWEETS_MENU,
   },
   {
     id: "salted-sunshine",
@@ -88,14 +103,19 @@ const menuItems: MenuItem[] = [
     description: "Madagascar Vanilla Bean soft serve with extra virgin olive oil, Florida raw honey, and Maldon flake sea salt.",
     image: photos.salted,
     category: "sundaes",
-    orderUrl: `${OWNER_MENU}?item=the-salted-sunshine-y6He`,
+    price: 9,
+    orderUrl: SWEETS_MENU,
   },
 ];
 
 const faqItems = [
   {
     question: "Where can I order Skinny Cookies desserts?",
-    answer: "Order directly through the official PZZA& online menu. Product options, current prices, pickup and delivery choices, and availability are confirmed there.",
+    answer: "Order directly through the official PZZA& online menu, in the Sweets section. Product options, current prices, pickup and delivery choices, and availability are confirmed there.",
+  },
+  {
+    question: "Can I order Skinny Cookies on DoorDash?",
+    answer: "Yes. Skinny Cookies are in the Sweets section of PZZA&'s DoorDash store.",
   },
   {
     question: "Where is Skinny Cookies located?",
@@ -107,7 +127,7 @@ const faqItems = [
   },
   {
     question: "What Skinny Cookie items can I order online?",
-    answer: "The live PZZA& menu currently lists Skinny Cookie ice cream sandwiches and desserts made with Skinny Cookies, alongside soft serve and other sweets. Check the menu for the current selection.",
+    answer: "The live PZZA& menu lists The Skinny Cookie, the Skinny Cookie ice cream sandwich, and desserts made with Skinny Cookies, alongside soft serve and other sweets. Check the menu for the current selection.",
   },
 ];
 
@@ -115,7 +135,7 @@ const businessSchema = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   name: "Skinny Cookies by PZZA&",
-  url: typeof window === "undefined" ? "https://skinny-cookies.vercel.app/" : window.location.origin,
+  url: SITE_URL,
   telephone: "+1-561-931-2854",
   servesCuisine: ["Cookies", "Desserts", "Ice Cream"],
   brand: { "@type": "Brand", name: "Skinny Cookies" },
@@ -148,6 +168,7 @@ const productSchemas = menuItems.map((item) => ({
   image: typeof window === "undefined" ? item.image : new URL(item.image, window.location.href).href,
   brand: { "@type": "Brand", name: "Skinny Cookies by PZZA&" },
   url: item.orderUrl,
+  offers: { "@type": "Offer", price: item.price.toFixed(2), priceCurrency: "USD", url: item.orderUrl },
 }));
 
 const faqSchema = {
@@ -194,19 +215,20 @@ export default function Home() {
             <a href="#visit" onClick={closeMobileMenu}>Visit us</a>
           </div>
         </details>
-        <a className="header-order" href={OWNER_MENU} target="_blank" rel="noopener noreferrer">Order now <ArrowRight size={15} /></a>
+        <a className="header-order" href={SWEETS_MENU} target="_blank" rel="noopener noreferrer">Order now <ArrowRight size={15} /></a>
       </header>
 
       <main id="top">
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-copy">
             <p className="eyebrow">Skinny Cookies by PZZA& · Boca Raton, Florida</p>
-            <h1 id="hero-title">Boca Raton<br /><em>cookie</em> desserts.</h1>
+            <h1 id="hero-title">Boca Raton{" "}<br /><em>cookie</em> desserts.</h1>
             <p className="hero-description">Find Skinny Cookie ice cream sandwiches, cookie-studded sundaes, and more sweets on PZZA&'s live menu. Choose pickup or delivery in the official order flow.</p>
             <div className="hero-actions">
-              <a className="primary-button" href={OWNER_MENU} target="_blank" rel="noopener noreferrer">Order through PZZA& <ArrowRight size={17} /></a>
-              <span className="hero-note">Made in small batches<br />at PZZA& in Boca Raton</span>
+              <a className="primary-button" href={SWEETS_MENU} target="_blank" rel="noopener noreferrer">Order through PZZA& <ArrowRight size={17} /></a>
+              <a className="doordash-button" href={DOORDASH_URL} target="_blank" rel="noopener noreferrer">Order on DoorDash <ArrowRight size={16} /></a>
             </div>
+            <p className="hero-note doordash-note">On DoorDash, find Skinny Cookies in the Sweets section of PZZA&'s menu. Made in small batches at PZZA& in Boca Raton.</p>
           </div>
           <div className="hero-art" aria-label="Fresh baked Skinny Cookie">
             <div className="sun-disc" />
@@ -229,7 +251,7 @@ export default function Home() {
               <p className="eyebrow eyebrow-light">On the PZZA& order menu</p>
               <h2 id="menu-title">Cookies / <em>sweet stuff</em></h2>
             </div>
-            <p className="section-intro">Browse the current PZZA& menu. Each order button opens the matching item; current prices, options, and availability are shown there.</p>
+            <p className="section-intro">Prices are PZZA&'s in-store menu prices. Each order button opens the Sweets section of PZZA&'s live menu, where current prices, options, and availability are confirmed.</p>
           </div>
 
           <div className="category-tabs" role="group" aria-label="Filter sweets">
@@ -247,16 +269,17 @@ export default function Home() {
 
         <section id="story" className="story-section">
           <div className="story-photo"><img src={photos.sandwich} alt="Skinny Cookie ice cream sandwich made at PZZA&" /></div>
-          <div className="story-copy"><p className="eyebrow">The not-so-secret recipe</p><h2>Thin on the edge.<br /><em>Big in the middle.</em></h2><p>Skinny Cookie desserts are part of the PZZA& experience in Boca Raton. Find the live selection—including cookie ice cream sandwiches and sundaes—in the existing PZZA& ordering menu.</p><a href={OWNER_MENU} target="_blank" rel="noopener noreferrer" className="text-link">Order on PZZA& <ArrowRight size={16} /></a></div>
+          <div className="story-copy"><p className="eyebrow">The not-so-secret recipe</p><h2>Thin on the edge.{" "}<br /><em>Big in the middle.</em></h2><p>Skinny Cookie desserts are part of the PZZA& experience in Boca Raton. Find the live selection—including cookie ice cream sandwiches and sundaes—in the existing PZZA& ordering menu.</p><a href={SWEETS_MENU} target="_blank" rel="noopener noreferrer" className="text-link">Order on PZZA& <ArrowRight size={16} /></a></div>
         </section>
 
         <section id="visit" className="visit-section" style={{ backgroundImage: `linear-gradient(100deg, rgba(17,17,17,.92) 0%, rgba(17,17,17,.78) 45%, rgba(17,17,17,.35) 100%), url(${photos.softServe})` }}>
-          <div><p className="eyebrow eyebrow-light">Come say hi</p><h2>Sweet things<br /><em>happen here.</em></h2></div>
+          <div><p className="eyebrow eyebrow-light">Come say hi</p><h2>Sweet things{" "}<br /><em>happen here.</em></h2></div>
           <div className="visit-details">
-            <p>Skinny Cookies at<br /><strong>PZZA& · 126 NE 2nd St<br />Boca Raton, FL 33432</strong></p>
+            <p>Skinny Cookies at{" "}<br /><strong>PZZA& · 126 NE 2nd St{" "}<br />Boca Raton, FL 33432</strong></p>
             <p>Open daily, 11:30 AM–9 PM. PZZA&'s order page shows the available pickup and delivery options for your address.</p>
             <p><a href="tel:+15619312854">(561) 931-2854</a></p>
-            <a className="outline-button" href={OWNER_MENU} target="_blank" rel="noopener noreferrer">Order pickup or delivery <ArrowRight size={16} /></a>
+            <a className="outline-button" href={SWEETS_MENU} target="_blank" rel="noopener noreferrer">Order pickup or delivery <ArrowRight size={16} /></a>
+            <a className="outline-button" href={DOORDASH_URL} target="_blank" rel="noopener noreferrer">Order on DoorDash <ArrowRight size={16} /></a>
           </div>
         </section>
 
@@ -280,7 +303,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   return <article className="menu-card" style={{ ['--delay' as string]: `${index * 55}ms` }}>
     <div className="card-image-wrap"><img src={item.image} alt={item.name} loading="lazy" /></div>
     <div className="card-content">
-      <div className="card-title-row"><h3>{item.name}</h3></div>
+      <div className="card-title-row"><h3>{item.name}</h3><span>{money(item.price)}</span></div>
       <p>{item.description}</p>
       <a className="card-order" href={item.orderUrl} target="_blank" rel="noopener noreferrer" aria-label={`Order ${item.name} through PZZA&`}>Order through PZZA& <ArrowRight size={14} /></a>
     </div>
