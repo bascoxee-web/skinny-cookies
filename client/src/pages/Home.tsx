@@ -15,8 +15,8 @@ const OWNER_MENU = "https://pzzaand.com/menu";
 // Item links (?item=...) change their suffix whenever the menu is edited, so every order button
 // opens the Sweets section of the live menu instead. That link keeps working after menu edits.
 const SWEETS_MENU = `${OWNER_MENU}#sweets`;
-// Skinny Cookies has no separate DoorDash store yet; its items are in PZZA&'s DoorDash store (Sweets).
-const DOORDASH_URL = "https://www.doordash.com/store/pzza-boca-raton-25830742/";
+// Skinny Cookies' own DoorDash store.
+const DOORDASH_URL = "https://www.doordash.com/store/skinny-cookies-boca-raton-44500566/";
 const SITE_URL = "https://www.skinnycookies.com/";
 const money = (value: number) => `$${value.toFixed(2)}`;
 const img = (name: string) => `./img/${name}.jpg`;
@@ -115,7 +115,7 @@ const faqItems = [
   },
   {
     question: "Can I order Skinny Cookies on DoorDash?",
-    answer: "Yes. Skinny Cookies are in the Sweets section of PZZA&'s DoorDash store.",
+    answer: "Yes. Skinny Cookies has its own store on DoorDash for delivery in Boca Raton.",
   },
   {
     question: "Where is Skinny Cookies located?",
@@ -228,7 +228,7 @@ export default function Home() {
               <a className="primary-button" href={SWEETS_MENU} target="_blank" rel="noopener noreferrer">Order through PZZA& <ArrowRight size={17} /></a>
               <a className="doordash-button" href={DOORDASH_URL} target="_blank" rel="noopener noreferrer">Order on DoorDash <ArrowRight size={16} /></a>
             </div>
-            <p className="hero-note doordash-note">On DoorDash, find Skinny Cookies in the Sweets section of PZZA&'s menu. Made in small batches at PZZA& in Boca Raton.</p>
+            <p className="hero-note doordash-note">Made in small batches at PZZA& in Boca Raton.</p>
           </div>
           <div className="hero-art" aria-label="Fresh baked Skinny Cookie">
             <div className="sun-disc" />
