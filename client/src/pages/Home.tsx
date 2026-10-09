@@ -134,7 +134,7 @@ const faqItems = [
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  name: "Skinny Cookies by PZZA&",
+  name: "Skinny Cookies @ PZZA&",
   url: SITE_URL,
   telephone: "+1-561-931-2854",
   servesCuisine: ["Cookies", "Desserts", "Ice Cream"],
@@ -166,7 +166,7 @@ const productSchemas = menuItems.map((item) => ({
   name: item.name,
   description: item.description,
   image: typeof window === "undefined" ? item.image : new URL(item.image, window.location.href).href,
-  brand: { "@type": "Brand", name: "Skinny Cookies by PZZA&" },
+  brand: { "@type": "Brand", name: "Skinny Cookies @ PZZA&" },
   url: item.orderUrl,
   offers: { "@type": "Offer", price: item.price.toFixed(2), priceCurrency: "USD", url: item.orderUrl },
 }));
@@ -200,7 +200,7 @@ export default function Home() {
       <header className="topbar">
         <a className="brand-lockup" href="#top" aria-label="Skinny Cookies home">
           <img className="brand-mascot" src="./brand/mascot-sm.png" alt="" width="34" height="54" />
-          <span className="brand-name"><img className="brand-wordmark" src="./brand/wordmark.png" alt="Skinny Cookies" width="92" height="48" /><small>by PZZA&</small></span>
+          <span className="brand-name"><img className="brand-wordmark" src="./brand/wordmark.png" alt="Skinny Cookies" width="92" height="48" /><small>@ PZZA&</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#menu">Menu</a>
@@ -221,7 +221,7 @@ export default function Home() {
       <main id="top">
         <section className="hero-section" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">Skinny Cookies by PZZA& · Boca Raton, Florida</p>
+            <p className="eyebrow">Skinny Cookies @ PZZA& · Boca Raton, Florida</p>
             <h1 id="hero-title">Boca Raton{" "}<br /><em>cookie</em> desserts.</h1>
             <p className="hero-description">Find Skinny Cookie ice cream sandwiches, cookie-studded sundaes, and more sweets on PZZA&'s live menu. Choose pickup or delivery in the official order flow.</p>
             <div className="hero-actions">
@@ -294,7 +294,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer"><div className="footer-brand"><img className="brand-mascot" src="./brand/mascot-sm.png" alt="" width="30" height="48" /><span>Skinny Cookies by PZZA&</span></div><div className="footer-social"><a href="https://www.instagram.com/eatskinnycookies/" target="_blank" rel="noopener noreferrer" aria-label="Skinny Cookies on Instagram"><Instagram size={18} /></a><a href="https://www.facebook.com/profile.php?id=61579066653692" target="_blank" rel="noopener noreferrer" aria-label="Skinny Cookies on Facebook"><span className="facebook-icon">f</span></a></div><span className="footer-copy">© 2026 Skinny Cookies · All rights reserved</span></footer>
+      <footer className="footer"><div className="footer-brand"><img className="brand-mascot" src="./brand/mascot-sm.png" alt="" width="30" height="48" /><span>Skinny Cookies @ PZZA&</span></div><div className="footer-social"><a href="https://www.instagram.com/eatskinnycookies/" target="_blank" rel="noopener noreferrer" aria-label="Skinny Cookies on Instagram"><Instagram size={18} /></a><a href="https://www.facebook.com/profile.php?id=61579066653692" target="_blank" rel="noopener noreferrer" aria-label="Skinny Cookies on Facebook"><span className="facebook-icon">f</span></a></div><span className="footer-copy">© 2026 Skinny Cookies · All rights reserved</span></footer>
     </div>
   );
 }
