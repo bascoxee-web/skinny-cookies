@@ -200,7 +200,7 @@ export default function Home() {
       <header className="topbar">
         <a className="brand-lockup" href="#top" aria-label="Skinny Cookies home">
           <img className="brand-mascot" src="./brand/mascot-sm.png" alt="" width="34" height="54" />
-          <span className="brand-name"><img className="brand-wordmark" src="./brand/wordmark.png" alt="Skinny Cookies" width="92" height="48" /><small>@ PZZA&</small></span>
+          <span className="brand-name"><span className="brand-wordmark">Skinny<br />Cookies</span><small>@ PZZA&</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#menu">Menu</a>

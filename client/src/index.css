@@ -50,7 +50,7 @@ em { font-style:normal; color:var(--sauce); }
 .brand-mascot { height:54px; width:auto; transform:rotate(-6deg); transition:transform .25s ease; }
 .brand-lockup:hover .brand-mascot { transform:rotate(4deg) translateY(-2px); }
 .brand-name { display:flex; flex-direction:column; line-height:1; }
-.brand-wordmark { display:block; height:40px; width:auto; }
+.brand-wordmark { display:block; font-family:var(--display); font-weight:700; font-size:21px; line-height:.92; letter-spacing:.005em; text-transform:uppercase; color:#4b3700; white-space:nowrap; }
 .brand-name small { display:block; margin-top:4px; font-family:var(--body); font-size:9px; font-weight:700; letter-spacing:.14em; color:var(--gator); }
 .desktop-nav { display:flex; gap:28px; margin-left:auto; margin-right:36px; font-family:var(--display); text-transform:uppercase; letter-spacing:.08em; font-size:14px; font-weight:500; }
 .desktop-nav a { color:var(--ink-soft); transition:color .18s ease; }
@@ -207,7 +207,7 @@ em { font-style:normal; color:var(--sauce); }
   .sun-disc { right:4%; top:2%; width:120px; }
   .hero-mascot { left:-2%; width:118px; }
   .brand-mascot { height:44px; }
-  .brand-wordmark { height:32px; }
+  .brand-wordmark { font-size:17px; }
   .hero-bottomline { margin-top:10px; gap:8px; font-size:9px; }
   .hero-bottomline .line { width:24px; }
   .section-heading { display:block; margin-bottom:26px; }
